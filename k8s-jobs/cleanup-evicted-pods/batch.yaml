@@ -1,0 +1,21 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleanup-evicted-pods-job
+  namespace: maintance
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: sa-maitance-cleanup-evicted-pods
+          containers:
+            - name: cleanup-evicted-pods
+              image: ghcr.io/ohkillsh/k8s-job-evictedpods:main
+          #              command:
+          #                - /bin/sh
+          #                - -c
+          #                - kubectl patch deployment runners -p '{"spec":{"template":{"spec":{"containers":[{"name":"jp-runner","env":[{"name":"START_TIME","value":"'$(date +%s)'"}]}]}}}}' -n jp-test
+          restartPolicy: OnFailure

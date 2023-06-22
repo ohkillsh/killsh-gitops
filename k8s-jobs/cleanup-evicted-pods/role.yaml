@@ -1,0 +1,27 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: maitance-cleanup-evicted-pods
+  namespace: maintance
+rules:
+  - apiGroups:
+      - extensions
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - "patch"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: maitance-cleanup-evicted-pods
+  namespace: maintance
+subjects:
+  - kind: ServiceAccount
+    name: sa-maitance-cleanup-evicted-pods
+    namespace: maintance
+roleRef:
+  kind: Role
+  name: maitance-cleanup-evicted-pods
+  apiGroup: ""
