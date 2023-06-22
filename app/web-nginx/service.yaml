@@ -1,11 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    run: web
   name: web
-
+  annotations:
+    haproxy.org/check: "enabled"
+    haproxy.org/forwarded-for: "enabled"
+    haproxy.org/load-balance: "roundrobin"
 spec:
   selector:
     app: web
   ports:
-  - port: 80
-    targetPort: htt-web
+    - port: 80
+      protocol: TCP
+      targetPort: http-web

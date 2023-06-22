@@ -1,22 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: web
   annotations:
-    #haproxy-ingress.github.io/balance-algorithm: roundrobin
-    #haproxy-ingress.github.io/ssl-redirect: "false"
+    haproxy.org/ssl-redirect: "false"
     haproxy.org/check: "enabled"
-    haproxy.org/forwarded-for: "enabled"
+    haproxy.org/check-http: "/health"
+    haproxy.org/check-interval: "15s"
+    haproxy.org/forwarded-for: "true"
     haproxy.org/load-balance: "roundrobin"
+    haproxy.org/ingress.class: "haproxy"
+    # reference in https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/
 spec:
-  ingressClassName: haproxy
+  #ingressClassName: haproxy
   rules:
-    - http:
+    - host: app.ohkillsh.win
+      http:
         paths:
-          - path: /testpath
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: test
+                name: web
                 port:
                   number: 80
