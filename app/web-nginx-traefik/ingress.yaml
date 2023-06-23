@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-testapp
+  annotations:
+    haproxy.org/ssl-redirect: "false"
+    haproxy.org/check: "enabled"
+    haproxy.org/check-http: "/health"
+    haproxy.org/check-interval: "15s"
+    haproxy.org/forwarded-for: "true"
+    haproxy.org/load-balance: "roundrobin"
+    # reference in https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: app.ohkillsh.win
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: testapp
+                port:
+                  number: 80
