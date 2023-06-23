@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: testapp
   namespace: dev
 spec:
   selector:
     matchLabels:
-      app: web
+      app: testapp
   template:
     metadata:
       labels:
-        app: web
+        app: testapp
     spec:
       containers:
-        - name: web
+        - name: testapp
           image: nginx:1.25.1
           resources:
             limits:
@@ -21,4 +21,4 @@ spec:
               cpu: "250m"
           ports:
             - containerPort: 80
-              name: http-web
+              name: http
