@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: coredump-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: coredump
+  template:
+    metadata:
+      labels:
+        app: coredump
+    spec:
+      hostPID: true
+      containers:
+        - name: coredump-container
+          image: alpine:3.18
+          resources:
+            limits:
+              cpu: 500m
+              memory: 600Mi
+            requests:
+              cpu: 75m
+              memory: 225Mi   
+          securityContext:
+            privileged: true
+          command: &#91;"/bin/sh","-c"]
+          args:  
+            - "sysctl -w kernel.core_pattern=/tmp/core.%h.%e.%p.%t &amp;&amp; sleep infinity"
+          volumeMounts:
+            - name: hostmount
+              mountPath: /root
+      volumes:
+        - name: hostmount
+          hostPath:
+            path: /root
