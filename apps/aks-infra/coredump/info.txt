@@ -1,0 +1,25 @@
+https://pixelrobots.co.uk/2023/08/customizing-core-dump-location-for-azure-linux-on-kubernetes/
+
+Customizing Core Dump Location
+To customize the location of core dump files in Azure Linux on AKS, we can leverage sysctl. Let’s take a look at the command.
+
+Shell
+sysctl -w kernel.core_pattern=/tmp/core-%e-%s-%u-%g-%p-%t
+This command will modify the kernel parameter kernel.core_pattern. This parameter determines the pattern or format of the core dump file name when a program crashes and generates a core dump.
+
+Let’s break down the components of the command and understand their meanings:
+
+sysctl: This is a command-line utility used to view, modify, and configure kernel parameters in a running Linux system.
+-w: This option is used to set the value of a kernel parameter.
+kernel.core_pattern: This is the specific kernel parameter we are modifying. It specifies the pattern for generating the core dump file name.
+=/tmp/core-%e-%s-%u-%g-%p-%t: This value is assigned to the kernel.core_pattern parameter. It sets the pattern for the core dump file name.
+Now, let’s understand the placeholders within the pattern:
+
+%h: Represents the hostname of the system where the core dump occurred.
+%e: This placeholder is replaced with the executable (program) name that generated the core dump.
+%s: This placeholder is replaced with the signal number that caused the program to crash.
+%u: This placeholder is replaced with the UID (user ID) of the process that crashed.
+%g: This placeholder is replaced with the GID (group ID) of the process that crashed.
+%p: This placeholder is replaced with the PID (process ID) of the process that crashed.
+%t: This placeholder is replaced with a timestamp indicating the time of the crash.
+In the provided command, the core dump file name will follow the format: /tmp/core-{hostname}-{executable}-{signal}-{UID}-{GID}-{PID}-{timestamp}. The core dump files will be stored in the /tmp/ directory.
