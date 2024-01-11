@@ -13,16 +13,16 @@ spec:
               revision: HEAD
               directories:
               - path: application-set/cluster-addons/*
-          # git generator, 'child' #2
+          #git generator, 'child' #2
           - clusters:
               selector:
                 matchLabels:
-                  environment: 'testing'
+                  Environment: 'testing'
   template:
     metadata:
       name: '{{ path.basename }}-{{ name }}'
     spec:
-      project: '{{metadata.labels.environment}}'
+      project: 'default'
       source:
         repoURL: https://github.com/ohkillsh/killsh-gitops.git
         targetRevision: HEAD
@@ -30,3 +30,6 @@ spec:
       destination:
         server: '{{ server }}'
         namespace: '{{ path.basename }}'
+      syncPolicy:
+          syncOptions:
+          - CreateNamespace=true
