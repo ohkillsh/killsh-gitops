@@ -8,10 +8,10 @@ spec:
     - matrix: 
       generators:
         - git:
-            repoURL:
+            repoURL: https://github.com/ohkillsh/killsh-gitops.git
             revision: HEAD
-            files:
-              path: "application-set/cluster-addons/"
+            directories:
+            - path: application-set/cluster-addons/*
         - clusters:
             selector:
               matchLabels:
