@@ -4,6 +4,8 @@ metadata:
   name: cluster-addons-application-set
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix: 
         generators:
@@ -35,5 +37,4 @@ spec:
           - CreateNamespace=true
           automated:
             prune: true
-            allowEmpty: true
             selfHeal: true

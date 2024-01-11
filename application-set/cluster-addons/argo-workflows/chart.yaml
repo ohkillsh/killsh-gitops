@@ -2,6 +2,6 @@ component: argo-workflows
 project: cluster-addons
 repoURL: https://argoproj.github.io/argo-helm
 version: 0.40.5
-namespace: argo
+namespace: kube-system
 values: |-
   crds.install: true
