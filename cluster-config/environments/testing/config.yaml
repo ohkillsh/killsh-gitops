@@ -24,7 +24,7 @@ spec:
                   Environment: 'testing'
   template:
     metadata:
-      name: '{{ path.basename }}-{{ name }}'
+      name: '{{.path.basename}}'
     spec:
       project: 'default'
       source:
@@ -32,7 +32,7 @@ spec:
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
-        server: '{{server}}'
+        server: '{{.server}}'
       syncPolicy:
           syncOptions:
           - CreateNamespace=true
