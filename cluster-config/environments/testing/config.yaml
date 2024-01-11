@@ -33,6 +33,7 @@ spec:
         path: '{{.path.path}}'
       destination:
         server: '{{.server}}'
+        namespace: argocd
       syncPolicy:
           syncOptions:
           - CreateNamespace=true
