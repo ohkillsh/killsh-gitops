@@ -6,24 +6,27 @@ metadata:
 spec:
   generators:
     - matrix: 
-      generators:
-        - git:
-            repoURL: https://github.com/ohkillsh/killsh-gitops.git
-            revision: HEAD
-            directories:
-            - path: application-set/cluster-addons/*
-        - clusters:
-            selector:
-              matchLabels:
-                environment: 'testing'
+        generators:
+          # git generator, 'child' #1
+          - git:
+              repoURL: https://github.com/ohkillsh/killsh-gitops.git
+              revision: HEAD
+              directories:
+              - path: application-set/cluster-addons/*
+          # git generator, 'child' #2
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: 'testing'
   template:
     metadata:
-      name: '{{ .cluster }}-cluster-addon'
+      name: '{{ path.basename }}-{{ name }}'
     spec:
+      project: '{{metadata.labels.environment}}'
       source:
-        repoURL: '{{ git.repoURL }}'
-        path: '{{ git.path }}'
-        targetRevision: '{{ git.revision }}'
+        repoURL: https://github.com/ohkillsh/killsh-gitops.git
+        targetRevision: HEAD
+        path: '{{ path }}'
       destination:
-        server: '{{ cluster.server }}'
-        namespace: '{{ cluster.metadata.namespace }}'
+        server: '{{ server }}'
+        namespace: '{{ path.basename }}'
