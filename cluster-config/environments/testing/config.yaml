@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata: 
+  name: cluster-addons-application-set
+  namespace: argocd
+spec:
+  generators:
+    - matrix: 
+      generators:
+        - git:
+            repoURL:
+            revision: HEAD
+            files:
+              path: "application-set/cluster-addons/"
+        - clusters:
+            selector:
+              matchLabels:
+                environment: 'testing'
+  template:
+    metadata:
+      name: '{{ .cluster }}-cluster-addon'
+    spec:
+      source:
+        repoURL: '{{ git.repoURL }}'
+        path: '{{ git.path }}'
+        targetRevision: '{{ git.revision }}'
+      destination:
+        server: '{{ cluster.server }}'
+        namespace: '{{ cluster.metadata.namespace }}'

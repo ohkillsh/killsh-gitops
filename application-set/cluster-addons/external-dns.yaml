@@ -1,0 +1,12 @@
+component: external-dns
+project: default
+repoURL: 'https://charts.bitnami.com/bitnami'
+version: 6.29.0
+namespace: external-dns
+values: |-
+  installCRDs: true
+  provider: azure
+  source: service
+  source: ingress
+  domain-filter: example.com
+  azure-resource-group: rg-of-dns-zone-in-azure
