@@ -5,4 +5,4 @@ component: kube-prometheus
 version: 55.7.1
 
 values: |-
-  crds.install: true
+  
