@@ -24,12 +24,12 @@ spec:
                   Environment: 'testing'
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{chartName}}-{{path.basename}}'
     spec:
-      project: 'default'
+      project: '{{project}}'
       source:
-        repoURL: https://github.com/ohkillsh/killsh-gitops.git # '{{repoURL}}' estudar essa alternativa no goTemplate
-        path: '{{path.path}}'
+        chart: '{{chartName}}'
+        repoURL: '{{repoURL}}'
         targetRevision: '{{version}}'
         helm:
           parameters:

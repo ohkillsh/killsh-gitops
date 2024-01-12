@@ -1,4 +1,4 @@
-component: helm-prometheus-operator
+chartName: helm-prometheus-operator
 project: cluster-addons
 repoURL: https://prometheus-community.github.io/helm-charts
 version: 9.4.10
