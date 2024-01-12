@@ -9,9 +9,14 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$A
 
 kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds\?ref\=stable
 
+
+# retrieve initial password 
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
 argocd proj create cluster-addons
 
 argocd cluster add arn:aws:eks:eu-central-1:1234567890:cluster/dev-eks-k8s-local --name dev-eks-k8s-local --label environment=dev
+
 https://freedium.cfd/https://medium.com/@mprzygrodzki/argocd-applicationsset-with-helm-72bb6362d494
 ```
 
