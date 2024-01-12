@@ -11,3 +11,22 @@ values: |-
   #       enabled: true
   #     patch:
   #       enabled: false
+  
+  server:
+    # Keep the metrics for 3 months
+    retention: 90d
+
+  # Limit how many resources Prometheus can use
+  # resources:
+  #   limits:
+  #     cpu: 750m
+  #     memory: 12Gi  # (2)
+  #   requests:
+  #     cpu: 500m
+  #     memory: 12Gi  # (2)
+
+  # Can't use PVs with "Deployments" (1)
+  # persistentVolume:
+  #   enabled: true
+  # statefulSet:  # (3)
+  #   enabled: true
