@@ -1,8 +1,7 @@
 project: cluster-addons
-namespace: prometheus-stack
+namespace: monitoring-stack
 repoURL: https://prometheus-community.github.io/helm-charts
-chart: kube-prometheus-stack
-app-name: kube-prometheus
+component: kube-prometheus-stack
 version: 55.7.1
 
 values: |-
