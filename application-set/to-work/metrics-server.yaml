@@ -1,0 +1,7 @@
+component: external-secrets
+project: default
+repoURL: https://charts.external-secrets.io
+version: 0.9.11
+namespace: external-secrets
+values: |-
+  installCRDs: true
