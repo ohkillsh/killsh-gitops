@@ -5,9 +5,9 @@ component: kube-prometheus-stack
 version: 55.7.1
 
 values: |-
-  prometheusOperator:
-    admissionWebhooks:
-      certManager:
-        enabled: true
-      patch:
-        enabled: false
+  # prometheusOperator:
+  #   admissionWebhooks:
+  #     certManager:
+  #       enabled: true
+  #     patch:
+  #       enabled: false
