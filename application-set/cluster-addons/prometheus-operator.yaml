@@ -1,7 +1,8 @@
-component: prometheus-community 
 project: cluster-addons
-repoURL: https://prometheus-community.github.io/helm-charts
-version: 55.7.1
 namespace: prometheus-stack
+repoURL: https://prometheus-community.github.io/helm-charts
+component: kube-prometheus 
+version: 55.7.1
+
 values: |-
   crds.install: true
