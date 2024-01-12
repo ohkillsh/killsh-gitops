@@ -4,8 +4,8 @@ metadata:
   name: cluster-addons-application-set
   namespace: argocd
 spec:
-  goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  #goTemplate: true
+  #goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix: 
         generators:
@@ -24,19 +24,33 @@ spec:
                   Environment: 'testing'
   template:
     metadata:
-      name: '{{.path.basename}}'
+      name: '{{path.basename}}'
     spec:
       project: 'default'
       source:
-        repoURL: https://github.com/ohkillsh/killsh-gitops.git
-        targetRevision: HEAD
-        path: '{{.path.path}}'
+        repoURL: https://github.com/ohkillsh/killsh-gitops.git # '{{repoURL}}' estudar essa alternativa no goTemplate
+        path: '{{path.path}}'
+        targetRevision: '{{version}}'
+        helm:
+          parameters:
+          - name: "installCRDs"
+            value: "true"
+          values: |-
+            {{values}}
       destination:
-        server: '{{.server}}'
-        namespace: argocd
+        server: '{{server}}'
+        namespace: '{{namespace}}' #argocd
+      
       syncPolicy:
           syncOptions:
-          - CreateNamespace=true
+          - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=false') ( true by default ).
+          - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+          - PrunePropagationPolicy=foreground # Supported policies are background, foreground and orphan.
+          - PruneLast=true # Allow the ability for resource pruning to happen as a final, implicit wave of a sync operation
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true
+          # The retry feature is available since v1.7
           automated:
-            prune: true
-            selfHeal: true
+            prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+            selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+            allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
