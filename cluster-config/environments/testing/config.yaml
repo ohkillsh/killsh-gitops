@@ -24,7 +24,7 @@ spec:
     metadata:
       name: '{{component}}'
     spec:
-      project: '{{project}}'
+      project: 'default' #'{{project}}'
       source:
         chart: '{{component}}'
         repoURL: '{{repoURL}}'
