@@ -22,7 +22,7 @@ spec:
               #    Environment: 'testing'
   template:
     metadata:
-      name: '{{component}}'
+      name: '{{name: }}'
     spec:
       project: '{{project}}'
       source:
