@@ -13,15 +13,13 @@ spec:
           - git:
               repoURL: https://github.com/ohkillsh/killsh-gitops.git
               revision: HEAD
-              directories:
+              files:
               - path: application-set/cluster-addons/*
-              - path: application-set/cluster-addons/to-work
-                exclude: true
           #git generator, 'child' #2
-          - clusters:
-              selector:
-                matchLabels:
-                  Environment: 'testing'
+          - clusters: {} # Automatically use all clusters defined within Argo CD
+              #selector:
+              #  matchLabels:
+              #    Environment: 'testing'
   template:
     metadata:
       name: '{{component}'
