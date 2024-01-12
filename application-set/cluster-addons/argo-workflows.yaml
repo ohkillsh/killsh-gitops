@@ -1,5 +1,5 @@
 project: cluster-addons
-namespace: kube-system
+namespace: argo
 repoURL: https://argoproj.github.io/argo-helm
 component: argo-workflows
 version: 0.40.5
