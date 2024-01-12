@@ -1,0 +1,8 @@
+project: cluster-addons
+namespace: cert-manager
+repoURL: https://charts.jetstack.io
+component: cert-manager
+version: 1.13.3
+
+values: |-
+  installCRDs: true
