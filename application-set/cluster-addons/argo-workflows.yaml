@@ -1,7 +1,8 @@
 project: cluster-addons
 namespace: argo
 repoURL: https://argoproj.github.io/argo-helm
-component: argo-workflows
+chart: argo-workflows
+app-name: argo-workflows
 version: 0.40.5
 
 values: |-

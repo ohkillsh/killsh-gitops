@@ -22,11 +22,11 @@ spec:
               #    Environment: 'testing'
   template:
     metadata:
-      name: '{{component}}'
+      name: '{{app-name}}'
     spec:
       project: '{{project}}'
       source:
-        chart: '{{component}}'
+        chart: '{{chart}}'
         repoURL: '{{repoURL}}'
         targetRevision: '{{version}}'
         helm:
